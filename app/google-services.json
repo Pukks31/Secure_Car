@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "269045128622",
+    "project_id": "car-19272",
+    "storage_bucket": "car-19272.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:269045128622:android:7010f275c7d0a4b2f13c3f",
+        "android_client_info": {
+          "package_name": "co.edu.unab.secure_car"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "269045128622-bvbc3ee7sgklf6lajv6pvnghic7r3f6a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD739FCiRTcPnYh85ElyslyGB3Jm1-jbe4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "269045128622-bvbc3ee7sgklf6lajv6pvnghic7r3f6a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
