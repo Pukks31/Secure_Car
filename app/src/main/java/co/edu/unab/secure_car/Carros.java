@@ -5,12 +5,52 @@ public class Carros {
     String modelo;
     String placa;
     String color;
+    String nombre;
+    String edad;
+    String genero;
+    String id;
 
-    public Carros(String marca, String modelo, String placa, String color) {
+    public Carros(String marca, String modelo, String placa, String color, String nombre, String edad, String genero, String id) {
         this.marca = marca;
         this.modelo = modelo;
         this.placa = placa;
         this.color = color;
+        this.nombre = nombre;
+        this.edad = edad;
+        this.genero = genero;
+        this.id = id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getEdad() {
+        return edad;
+    }
+
+    public void setEdad(String edad) {
+        this.edad = edad;
+    }
+
+    public String getGenero() {
+        return genero;
+    }
+
+    public void setGenero(String genero) {
+        this.genero = genero;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getMarca() {

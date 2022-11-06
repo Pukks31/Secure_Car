@@ -101,32 +101,8 @@ public class Home extends AppCompatActivity {
         Toast.makeText(this, "Sesion cerrada", Toast.LENGTH_SHORT).show();
         startActivity(new Intent(Home.this, Login.class));
     }
-    /*private void Actualizar(){
-        String id= Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
-        Map<String, Object> map=new HashMap<>();
 
-        databaseReference.child("Users").child(id).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if (!task.isSuccessful()) {
-                    Log.e("firebase", "Error getting data", task.getException());
-                }
-                else {
-                    Integer as =  task.getResult().child("intentos").getValue(Integer.class) + 1;
-                    map.put("intentos",as);
-                    map.putAll(map);
-                    databaseReference.child("Users").child(id).updateChildren(map).addOnSuccessListener(new OnSuccessListener() {
-                        @Override
-                        public void onSuccess(Object o) {
-                            Toast.makeText(Home.this, "Se actualizo el perfil", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                }
-            }
-        });
-    }
-
-    private void TraerDatos(){
+    /*private void TraerDatos(){
         String id= Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
 
 

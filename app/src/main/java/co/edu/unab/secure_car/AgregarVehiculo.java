@@ -1,14 +1,19 @@
 package co.edu.unab.secure_car;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -20,7 +25,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+
 public class AgregarVehiculo extends AppCompatActivity {
+
+    DatabaseReference databaseReference;
+    private FirebaseAuth mAuth;
+
     EditText pt_nombre, pt_edad, pt_genero, pt_id, pt_marca, pt_referencia, pt_modelo, pt_placa, pt_color;
     Button btn_continuar_ag;
 
@@ -40,27 +53,57 @@ public class AgregarVehiculo extends AppCompatActivity {
             pt_color=findViewById(R.id.pt_color);
             btn_continuar_ag=findViewById(R.id.btn_continuar_ag);
 
-            pt_nombre.setText(getIntent().getStringExtra("Nombre"));
-            pt_edad.setText(getIntent().getStringExtra("Edad"));
-            pt_genero.setText(getIntent().getStringExtra("Genero"));
-            pt_id.setText(getIntent().getStringExtra("ID"));
-            pt_marca.setText(getIntent().getStringExtra("Marca"));
-            pt_referencia.setText(getIntent().getStringExtra("Referencia"));
-            pt_modelo.setText(getIntent().getStringExtra("Modelo"));
-            pt_placa.setText(getIntent().getStringExtra("Placa"));
-            pt_color.setText(getIntent().getStringExtra("color"));
+        databaseReference = FirebaseDatabase.getInstance().getReference();
+        databaseReference.setValue("").addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+            }
+        }).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+
+            }
+        });
             }
 
-        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("Cjidln2ifbT5w9WNWvN05dVfbnw2");
-
-    public void guardarDatos(View view){
-        String hola = "asd";
-    }
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("");
 
     public void onClickBtnAgregar(View view){
         //Ir a la ventana del login
+        Actualizar();
         Intent ingresar = new Intent(AgregarVehiculo.this, Home.class);
         startActivity(ingresar);
+    }
+
+    private void Actualizar(){
+        String id= Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
+        Map<String, Object> map=new HashMap<>();
+
+        databaseReference.child("Users").child(id).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (!task.isSuccessful()) {
+                    Log.e("firebase", "Error getting data", task.getException());
+                }
+                else {
+                    Carros carro = new Carros(pt_marca.getText().toString(), pt_modelo.getText().toString(), pt_marca.getText().toString(), pt_color.getText().toString(), pt_nombre.getText().toString(), pt_edad.getText().toString(), pt_genero.getText().toString(), pt_id.getText().toString());
+                    map.put("carros",carro);
+                    map.putAll(map);
+                    databaseReference.child("Users").child(id).updateChildren(map).addOnSuccessListener(new OnSuccessListener() {
+                        @Override
+                        public void onSuccess(Object o) {
+                            Toast.makeText(AgregarVehiculo.this, "Se actualizo el perfil", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+            }
+        });
     }
 
 }
